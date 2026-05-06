@@ -5,7 +5,7 @@ import os
 import pathlib
 
 
-_MAX_FILE_CHARACTERS = 12_000
+_FILE_BUFSIZE = 12_000
 
 
 @dataclasses.dataclass(frozen=True)
@@ -54,9 +54,9 @@ def read_file(file_path: pathlib.Path) -> FileSummary:
     f_size_bytes = file_path.stat().st_size
 
     with file_path.open('rb') as file:
-        file_bytes = file.read(_MAX_FILE_CHARACTERS + 1)
+        file_bytes = file.read(_FILE_BUFSIZE + 1)
 
-    is_truncated = len(file_bytes) > _MAX_FILE_CHARACTERS
+    is_truncated = len(file_bytes) > _FILE_BUFSIZE
     try:
         file_text = file_bytes.decode('utf-8')
     except UnicodeDecodeError:
@@ -65,7 +65,7 @@ def read_file(file_path: pathlib.Path) -> FileSummary:
             content_encoding='base64',
             truncated=is_truncated,
             size_bytes=f_size_bytes,
-            content=base64.b64encode(file_bytes[:_MAX_FILE_CHARACTERS]).decode('ascii'),
+            content=base64.b64encode(file_bytes[:_FILE_BUFSIZE]).decode('ascii'),
         )
     
     return FileSummary(
@@ -73,5 +73,5 @@ def read_file(file_path: pathlib.Path) -> FileSummary:
         content_encoding=None,
         truncated=is_truncated,
         size_bytes=f_size_bytes,
-        content=file_text[:_MAX_FILE_CHARACTERS],
+        content=file_text[:_FILE_BUFSIZE],
     )

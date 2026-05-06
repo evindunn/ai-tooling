@@ -1,1 +1,1 @@
-from .generate_image_description import generate_image_description
+from .generate_image_description import describe_docker_image

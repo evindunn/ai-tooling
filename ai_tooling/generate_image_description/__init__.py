@@ -29,7 +29,7 @@ def _load_examples_markdown() -> str:
     return '# Examples\n\n' + '\n'.join(example_lines)
 
 
-def generate_image_description(
+def describe_docker_image(
     client: openai.OpenAI,
     model: str,
     docker_context_summary: str,

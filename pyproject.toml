@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [tool.poetry]
-include = ["ai_tooling/generate_image_description/examples.json"]
+include = ["ai_tooling/_generate_image_description/examples.json"]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

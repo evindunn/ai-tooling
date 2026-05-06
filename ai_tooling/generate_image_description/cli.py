@@ -7,9 +7,8 @@ import sys
 import dotenv
 import openai
 
+import ai_tooling
 import ai_tooling.utils as utils
-
-from ai_tooling.generate_image_description import generate_image_description
 
 
 _DEFAULT_MODEL = 'gpt-5-mini'
@@ -86,7 +85,7 @@ def main() -> int:
         docker_context_mapping = build_context_mapping(args.docker_context)
         docker_context_summary = json.dumps(docker_context_mapping, indent=2, sort_keys=True)
         client = openai.OpenAI()
-        description_mapping = generate_image_description(
+        description_mapping = ai_tooling.describe_docker_image(
             client,
             args.model,
             docker_context_summary,
