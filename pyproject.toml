@@ -2,6 +2,7 @@
 name = "ai-tooling"
 version = "0.0.1"
 description = ""
+readme = "README.md"
 authors = [
     {name = "Evin Dunn"}
 ]

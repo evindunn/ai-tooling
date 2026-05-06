@@ -1,8 +1,8 @@
 # AI Tooling
 
-| Package | Description | CLI |
-| --- | --- | --- |
-| `ai_tooling.generate_image_description` | Generates a short, structured README description for a Docker image by summarizing its build context and querying the OpenAI Responses API. | `poetry run generate-image-description` |
+| Package | Description | CLI | Required Env Vars |
+| --- | --- | --- | --- |
+| `ai_tooling.generate_image_description` | Generates a short, structured README description for a Docker image by summarizing its build context and querying the OpenAI Responses API. | `poetry run generate-image-description` | `OPENAI_API_KEY` |
 
 ## Repo Skills
 

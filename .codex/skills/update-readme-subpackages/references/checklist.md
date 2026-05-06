@@ -13,6 +13,7 @@ Use this checklist when refreshing the `README.md` package table.
 1. Read each discovered subpackage's `__init__.py`.
 2. Read `cli.py` when present.
 3. Read nearby packaged resources only when they materially affect the user-facing description.
+4. Look for required environment variables in code, especially `dotenv`, `os.environ`, `os.getenv`, and client libraries that rely on standard credential variables.
 
 ## CLI mapping
 
@@ -22,7 +23,8 @@ Use this checklist when refreshing the `README.md` package table.
 
 ## README output
 
-1. Keep the table columns ordered as `Package`, `Description`, `CLI`.
+1. Keep the table columns ordered as `Package`, `Description`, `CLI`, `Required Env Vars`.
 2. Sort rows by package name unless the repository already uses a different explicit order.
 3. Keep descriptions to one sentence.
 4. Replace stale rows instead of appending duplicates.
+5. Render required environment variables as backticked variable names separated by commas when there are multiple.
