@@ -1,0 +1,5 @@
+[
+    "Chrony-based NTP service image for serving and persisting time sync state.",
+    "Debian Trixie slim base image with custom CA certificates installed.",
+    "Vault agent image that authenticates with AppRole and renders TLS certificates from Vault PKI."
+]
