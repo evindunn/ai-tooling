@@ -5,14 +5,14 @@ description = ""
 authors = [
     {name = "Evin Dunn"}
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.14,<4.0"
 dependencies = [
     "openai (>=2.34.0,<3.0.0)",
     "python-dotenv (>=1.2.2,<2.0.0)"
 ]
 
 [tool.poetry]
-include = ["ai_tooling/_generate_image_description/examples.json"]
+include = ["ai_tooling/generate_image_description/examples.json"]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
