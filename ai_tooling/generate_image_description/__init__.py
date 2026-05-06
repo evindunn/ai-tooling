@@ -39,7 +39,6 @@ def generate_image_description(
 
     :param client: Configured OpenAI client.
     :param model: Model identifier to call.
-    :param readme_table_examples: Existing managed README image table text.
     :param docker_context_summary: JSON summary of the Docker context.
     :returns: Mapping returned by the model.
     :raises ValueError: If the model response is empty or invalid JSON.

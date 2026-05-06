@@ -1,4 +1,5 @@
 import argparse
+import dataclasses
 import json
 import pathlib
 import sys
@@ -69,7 +70,7 @@ def build_context_mapping(context_dir: pathlib.Path) -> dict[str, object]:
         for file_name in file_names:
             file_path = root_path / file_name
             relative_path = file_path.relative_to(context_dir).as_posix()
-            context_mapping[relative_path] = utils.read_file(file_path)
+            context_mapping[relative_path] = dataclasses.asdict(utils.read_file(file_path))
 
     return context_mapping
 

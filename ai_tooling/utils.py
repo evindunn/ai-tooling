@@ -1,10 +1,30 @@
 
 import base64
+import dataclasses
 import os
 import pathlib
 
 
 _MAX_FILE_CHARACTERS = 12_000
+
+
+@dataclasses.dataclass(frozen=True)
+class FileSummary:
+    """
+    Summarized file content and metadata.
+
+    :param mime_type: MIME type describing the summarized content.
+    :param content_encoding: Optional encoding name applied to ``content``.
+    :param truncated: Whether the summarized content was truncated.
+    :param size_bytes: Original file size in bytes.
+    :param content: Text content or an encoded representation of binary data.
+    """
+
+    mime_type: str
+    content_encoding: str | None
+    truncated: bool
+    size_bytes: int
+    content: str
 
 
 def iter_directory_entries(target: pathlib.Path) -> list[tuple[pathlib.Path, list[str], list[str]]]:
@@ -24,33 +44,36 @@ def iter_directory_entries(target: pathlib.Path) -> list[tuple[pathlib.Path, lis
     return walk_entries
 
 
-def read_file(file_path: pathlib.Path) -> str | dict[str, object]:
+def read_file(file_path: pathlib.Path) -> FileSummary:
     """
-    Read a file into a JSON-friendly value.
+    Read a file into a structured summary.
 
     :param file_path: File path to summarize.
-    :returns: Full text content, truncated text content, or binary metadata.
+    :returns: Structured file metadata and content.
     """
+    f_size_bytes = file_path.stat().st_size
+
     with file_path.open('rb') as file:
         file_bytes = file.read(_MAX_FILE_CHARACTERS + 1)
 
     is_truncated = len(file_bytes) > _MAX_FILE_CHARACTERS
+    file_bytes = file_bytes[:_MAX_FILE_CHARACTERS]
 
     try:
         file_text = file_bytes.decode('utf-8')
     except UnicodeDecodeError:
-        return {
-            'mime_type': 'application/octet-stream',
-            'content_encoding': 'base64',
-            'truncated': is_truncated,
-            'size_bytes': len(file_bytes),
-            'content': base64.b64encode(file_bytes).decode('ascii'),
-        }
+        return FileSummary(
+            mime_type='application/octet-stream',
+            content_encoding='base64',
+            truncated=is_truncated,
+            size_bytes=f_size_bytes,
+            content=base64.b64encode(file_bytes).decode('ascii'),
+        )
 
-    return {
-        'mime_type': 'text/plain',
-        'content_encoding': None,
-        'truncated': is_truncated,
-        'size_characters': len(file_text),
-        'content': file_text,
-    }
+    return FileSummary(
+        mime_type='text/plain',
+        content_encoding=None,
+        truncated=is_truncated,
+        size_bytes=f_size_bytes,
+        content=file_text,
+    )
