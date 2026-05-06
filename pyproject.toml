@@ -1,8 +1,9 @@
 [project]
 name = "ai-tooling"
 version = "0.0.1"
-description = ""
-readme = "Tooling that uses AI tech"
+description = "Tooling that uses AI tech"
+license = "MIT"
+readme = "README.md"
 authors = [
     {name = "Evin Dunn"}
 ]
