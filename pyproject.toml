@@ -1,6 +1,6 @@
 [project]
 name = "ai-tooling"
-version = "0.0.2"
+version = "0.0.3"
 description = "Tooling that uses AI tech"
 license = "MIT"
 readme = "README.md"
