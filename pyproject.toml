@@ -20,3 +20,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 generate-image-description = "ai_tooling.generate_image_description.cli:main"
+
+[dependency-groups]
+dev = [
+    "pyyaml (>=6.0.3,<7.0.0)"
+]

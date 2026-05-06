@@ -1,0 +1,7 @@
+interface:
+  display_name: "Update README Subpackages"
+  short_description: "Refresh ai_tooling README table"
+  default_prompt: "Use $update-readme-subpackages to scan ai_tooling and pyproject.toml, then update the README package table with current descriptions and Poetry CLI commands."
+
+policy:
+  allow_implicit_invocation: true
