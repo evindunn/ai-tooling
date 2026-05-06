@@ -57,8 +57,6 @@ def read_file(file_path: pathlib.Path) -> FileSummary:
         file_bytes = file.read(_MAX_FILE_CHARACTERS + 1)
 
     is_truncated = len(file_bytes) > _MAX_FILE_CHARACTERS
-    file_bytes = file_bytes[:_MAX_FILE_CHARACTERS]
-
     try:
         file_text = file_bytes.decode('utf-8')
     except UnicodeDecodeError:
@@ -67,13 +65,13 @@ def read_file(file_path: pathlib.Path) -> FileSummary:
             content_encoding='base64',
             truncated=is_truncated,
             size_bytes=f_size_bytes,
-            content=base64.b64encode(file_bytes).decode('ascii'),
+            content=base64.b64encode(file_bytes[:_MAX_FILE_CHARACTERS]).decode('ascii'),
         )
-
+    
     return FileSummary(
         mime_type='text/plain',
         content_encoding=None,
         truncated=is_truncated,
         size_bytes=f_size_bytes,
-        content=file_text,
+        content=file_text[:_MAX_FILE_CHARACTERS],
     )
